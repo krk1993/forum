@@ -1,0 +1,53 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="static/styling.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	
+	$.ajax({url: "/contextlist?", success: function(result){
+		console.log(result);
+		$("#contextOptions").empty();
+		var i =0;
+		for(place in result)
+			{
+				if(i==0)
+				{
+					$("#contextOptions").append("<option value='"+place+"'selected>"+result[place]+"</option>");
+				}
+				else
+				{
+					$("#contextOptions").append("<option value='"+place+"'>"+result[place]+"</option>");
+				}
+				i++;
+			}
+        }});
+
+    $(".mainbutton").click(function(){
+        $.ajax({url: "/greeting?name=oldThing", success: function(result){
+		console.log(result);
+            $("#output").html('<h2>'+result.content+'</h2>');
+        }});
+    });
+});
+</script>
+</head>
+<!-- <body style="background-image:url('/static/website-background.jpg'); background-position: center;">  -->
+<body class="bodybg"> 
+
+<div id="div1"><h2 style="margin-top: 25px;font-style: italic;font-family: cursive;">Site Pot</h2></div>
+<div id="contextDiv" style="
+    margin-bottom: 16%;
+    margin-left: 35%;">
+<label style="padding: 15;font-size: 18px;font-family: cursive; color: #686769;">Context </label>
+<select id="contextOptions" class="selectBox">
+</select>
+</div>
+<div class="mainbutton">Get Content</div>
+<div class="serverContent" id="output">Show the output here</div>
+
+</body>
+ <footer>
+    © 2017 Akhilesh, Ramakrishna. All Rights Reserved.
+  </footer>
+</html>

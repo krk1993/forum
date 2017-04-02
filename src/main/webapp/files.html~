@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="static/styling.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script>
+// Attach a submit handler to the form
+jQuery(document).ready(function() {
+
+$.get("/fetchallposts").done(function(data){
+  var array = data;
+  alert(data);
+//data = $.parseJSON(data);
+$.each(data, function(i, item) {
+var singlefeeddiv = $("<div>", {  class : "singlefeed"});
+singlefeeddiv.append("<p>"+data.content+"</p>")
+    $(".feeddiv").prepend(singlefeeddiv);
+
+});
+});
+
+$( "#feedbut" ).click(function( event ) {
+ alert('enter pressed');
+ 
+//if (event.which == 13){
+ 
+  // Get some values from elements on the page:
+  var content = $( "#feeder" ).val();
+  alert(content);
+  // Send the data using post
+  var posting = $.post( "/post", { content: content, id : 1 } );
+ alert('posted');
+  // Put the results in a div
+  posting.done(function( data ) {
+    alert(data); 
+   // var singlefeeddiv = $(".singlefeed").
+var singlefeeddiv = $("<div>", {  class : "singlefeed"});
+singlefeeddiv.append("<p>"+content+"</p>")
+    $(".feeddiv").prepend(singlefeeddiv);
+  
+});
+//}
+});
+});
+</script>
+<title>Sitepot</title>
+</head>
+<img class="bg" src="/static/website-background.jpg" />
+<body >
+
+<div class="addfeed">
+	
+	<input id ="feeder" class="addtextforfeed" type="text" placeholder="What do you have to say?"/> <br>
+        <button id="feedbut">post</button>
+	
+</div>
+
+<div class="feeddiv">
+
+ </div>
+
+
+</body>
+ <footer>
+    © 2017 Akhilesh, Ramakrishna. All Rights Reserved.
+  </footer>
+</html>
